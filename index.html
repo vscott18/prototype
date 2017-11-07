@@ -12,7 +12,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
-<body>
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
 
   <!-- for the particles -->
   <div id="particles-js"> </div>
@@ -20,7 +20,7 @@
   <!-- the navbar -->
   <div class = "container-fluid">
 
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container-fluid">
 
         <div class="navbar-header">
@@ -28,21 +28,19 @@
         </div>
 
         <ul class="nav navbar-nav">
-          <li><a href="#intro">Home</a></li>
+          <li><a href="#">Home</a></li>
           <li><a href="#about">About</a></li>
-          <li><a href="#">Team</a></li>
           
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Services
-              <!-- <span class="glyphicon glyphicon-chevron-down"></span> -->
-            </a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="services"> Services</a>
             <ul class="dropdown-menu">
-              <li><a href="#">Pricing Options</a></li>
-              <li><a href="#">Demos</a></li>
-              <li><a href="#">Purchase</a></li>
+              <li><a href="#">Pricing</a></li>
+              <li><a href="#">Request A Demo</a></li>
+              <li><a href="#">Customer Support</a></li>
             </ul>
           </li>
 
+          <li><a href="#team">Team</a></li>
           <li><a href="#">Contact</a></li>
         </ul>
 
@@ -52,39 +50,17 @@
           <li><a href="#" data-toggle="dropdown" class="btn btn-default btn-outline btn-circle dropdown-toggle">Login</a>
             <ul class="dropdown-menu login">
               <div class="col-lg-12">
-                <div class="text-center"> <h3> Login </h3> </div>
                 <form id="ajax-login-form" action="/action_page.php" method="post" role="form" autocomplete="on">
                     
                     <div class="form-group">
                         <label for="username">Username or Email</label>
-                        <input type="text" name="username" id="username" class="form-control" placeholder="Username" value="" autocomplete="off">
-                    </div>
-
-                    <div class="form-group">
+                        <input type="text" name="username" id="username" class="form-control" placeholder="Username" value="" autocomplete="on">
                         <label for="password">Password</label>
-                        <input type="password" name="password" id="password" class="form-control" placeholder="Password" autocomplete="off">
-                    </div>
-
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-xs-7">
-                                <input type="checkbox" name="remember" id="remember">
-                                <label for="remember"> Remember Me</label>
-                            </div>
-                            <div class="col-xs-5 pull-right">
-                                <input type="submit" name="login-submit" id="login-submit" class="form-control btn btn-success" value="Log In">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="text-center">
-                                    <a href="#" tabindex="5" class="forgot-password">Forgot Password?</a>
-                                </div>
-                            </div>
-                        </div>
+                        <input type="password" name="password" id="password" class="form-control" placeholder="Password" autocomplete="on">
+                        <input type="checkbox" name="remember" id="remember">
+                        <label for="remember"> Remember Me</label>
+                        <input type="submit" name="login-submit" id="login-submit" class="form-control btn btn-success" value="Log In">
+                        <a href="#">Forgot Password?</a>
                     </div>
 
                 </form>
@@ -109,13 +85,15 @@
       and I'll get it to you write away!
     </p>
 
-    <div class="form-group" style="padding-top: 20px; z-index: 9999;"> <!-- z-index: 9999; -->
+  <form>
+    <div class="form-group" style="padding-top: 20px; z-index: 9999; padding-right: 100px; padding-left: 100px;">
       <input type="text" class="form-control" id="usr" placeholder="France weather">
     </div>
-
+  
     <div class="submit-btn" style="text-align: center; z-index: 9999;">
       <input type="submit" class="btn btn-info btn-lg" value = "Work My Magic">
-    </div> 
+    </div>
+  </form> 
 
   </div> <!-- end of intro container -->
 
@@ -127,25 +105,110 @@
       important part of your business. AmIWrite saves you time and money. </p>
   </div>
 
-  <!-- team section  -->
-  <div id = "team" class = "container">
-      <h3> Meet the Team </h3>
-      <div class="column team">
-          <div class="card">
-            <img src="https://i.imgur.com/ENlxUuU.jpg" style="width:100%">
-            <div class="container">
-              <h2>Victoria Scott</h2>
-              <p class="title">CEO &amp; Founder</p>
-              <p>vscott@princeton.com</p>
-                <div class="submit-btn" style="text-align: center; z-index: 9999;">
-                  <a><input type="submit" class="btn btn-info btn-lg" value = "Contact"></a>
-                </div> 
-            </div>
-          </div>
-        </div>
+  <!-- services section  -->
+  <div id = "services" class = "container">
+    <h3> Services </h3>
+    <p>Sign up to our platform and enjoy our simple and fast content writing bot</p>
+  </div>
+
+
+    <!-- team section  -->
+    <div id = "team" class = "container">
+        <h3> Meet the Team </h3>
+        <img src="https://i.imgur.com/5jxL037.jpg">
+        <p style="line-height: 1.0; font-weight:bold; font-size: 25px; color: #C3C7FF">Victoria Scott</p>
+        <p style="line-height: 1.0;">CEO &amp; Founder</p>
+        <p style="line-height: 1.0;">New York, New York</p>
+        <div class="submit-btn" style="text-align: center; z-index: 9999;">
+          <a href="https://www.linkedin.com/in/vscott2/"><input type="submit" class="btn btn-info btn-lg" value = "Connect"></a>
+        </div> 
     </div>
 
-    <!-- scripts for particles. source code: https://github.com/VincentGarreau/particles.js/ -->
+    <!-- contact section source code: https://bootsnipp.com/snippets/DOz84 -->
+    <div id = "contact" class="container">
+      <div class="row">
+        <h3> Contact</h3>
+        <hr>
+        <div class="col-sm-12">
+            <div class="col-sm-6">
+            <iframe width="100%" height="320px;" frameborder="0" style="border:0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.733201173456!2d-73.9891164497165!3d40.745895843378015!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259a89d04e4e9%3A0xf229fd2cc19090f!2s276+5th+Ave%2C+New+York%2C+NY+10001!5e0!3m2!1sen!2sus!4v1510004757329&key=AIzaSyC9NoTSXDqnW_D0hRZOaQ05X26Oo_Ge1vU" allowfullscreen></iframe>
+            </div>
+      
+            <div class="col-sm-6">
+              <form action="form.php" class="contact-form" method="post">
+        
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="name" name="nm" placeholder="Name" required="" autofocus="">
+                  </div>
+              
+                  <div class="form-group form_left">
+                    <input type="email" class="form-control" id="email" name="em" placeholder="Email" required="">
+                  </div>
+              
+                <div class="form-group">
+                <textarea class="form-control textarea-contact" rows="5" id="comment" name="FB" placeholder="Type Your Message/Feedback here..." required=""></textarea>
+                <br>
+
+                  <button class="btn btn-default btn-send"> <span class="glyphicon glyphicon-send"></span> Send </button>
+                </div>
+               </form>
+            </div>
+          </div>  
+      </div> <!-- end of row -->
+
+      <div class="row">
+
+        <div class="col-xs-12 col-sm-6 col-lg-4">
+        <div class="box">							
+          <div class="icon">
+
+            <div class="info">
+              <h3>MAIL & WEBSITE</h3>
+              <p>
+                <i class="fa fa-envelope" aria-hidden="true"></i> &nbsp vscott@princeton.edu
+                <i class="fa fa-globe" aria-hidden="true"></i> &nbsp www.hardikgondhiya.com
+              </p>  
+            </div>
+          </div>
+          <div class="space"></div>
+        </div> 
+      </div>
+        
+          <div class="col-xs-12 col-sm-6 col-lg-4">
+        <div class="box">							
+          <div class="icon">
+
+            <div class="info">
+              <h3>CONTACT</h3>
+                <p>
+                  <i class="fa fa-mobile" aria-hidden="true"></i> &nbsp (+917)-362-XXXX
+                </p>
+            </div>
+          </div>
+          <div class="space"></div>
+        </div> 
+      </div>
+        
+        <div class="col-xs-12 col-sm-6 col-lg-4">
+        <div class="box">							
+          <div class="icon">
+            <div class="info">
+              <h3>ADDRESS</h3>
+                <p>
+                 <i class="fa fa-map-marker" aria-hidden="true"></i> &nbsp 3646 Frist Center
+                 <i class="fa fa-map-marker" aria-hidden="true"></i> &nbsp Princeton Unversity
+                 <i class="fa fa-map-marker" aria-hidden="true"></i> &nbsp Princeton, New Jersey, 08544
+              </p>
+            </div>
+          </div>
+        </div> 
+      </div>		   
+        
+    </div>
+
+    </div> <!-- end of contact -->
+
+  <!-- scripts for particles. source code: https://github.com/VincentGarreau/particles.js/ -->
   <script type="text/javascript" src="particles.js"></script>
   <script type="text/javascript" src="app.js"></script>
 </body>
