@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link href="http://cdn.phpoll.com/css/animate.css" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
@@ -98,7 +98,23 @@
             </nav>
           </div> <!-- container-fluid and end of navbar-->
 
-          <h1 class="text-center"> Check Out What We Wrote: </h1>
+          <h1 class="text-center"> Here is Your Article! </h1>
+
+          <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+          <script>
+          jQuery(document).ready(function($) {
+            $.ajax({
+            url : "http://api.wunderground.com/api/cb89ade5f98c2a45/geolookup/conditions/q/IA/Cedar_Rapids.json",
+            dataType : "jsonp",
+            success : function(parsed_json) {
+            var location = parsed_json['location']['city'];
+            var temp_f = parsed_json['current_observation']['temp_f'];
+            alert("Current temperature in " + location + " is: " + temp_f);
+            }
+            });
+          });
+          </script>
+          
     <!-- scripts for particles. source code: https://github.com/VincentGarreau/particles.js/ -->
   <script type="text/javascript" src="particles.js"></script>
   <script type="text/javascript" src="app.js"></script>

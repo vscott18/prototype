@@ -1,7 +1,11 @@
 #API key for wunderground: cb89ade5f98c2a45 
 import requests
 
-r = requests.get("http://api.wunderground.com/api/cb89ade5f98c2a45/conditions/forecast/q/France/Paris.json")
+firstPart = "http://api.wunderground.com/api/cb89ade5f98c2a45/conditions/forecast/q/"
+query = "France/Paris"
+getThis = firstPart+query + ".json"
+
+r = requests.get(getThis)
 data = r.json()
 
 location = data['current_observation']['display_location']['full']
@@ -11,9 +15,9 @@ feelslike = data['current_observation']['feelslike_c']
 print "Currently in " + location + " it is: " + str(temp) + " degrees. But it feels like " + str(feelslike) + " degrees"
 
 if temp < 9:
-    print "Better bring a jacket to be warm"
+    print "Brrr! It's pretty cold. Better bring a jacket to stay warm."
 if temp > 23:
-    print "It's pretty warm. Stay cool!"
+    print "Is it just the weather or did you just walk in? Either case, it's hot right now. Stay cool!"
     
 print ""
 

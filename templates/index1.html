@@ -7,7 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link href="http://cdn.phpoll.com/css/animate.css" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <!-- <link rel="stylesheet" href="styles.css"> -->
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
@@ -32,7 +33,7 @@
           <li><a href="#about">About</a></li>
           
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="services"> Services</a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#services"> Services</a>
             <ul class="dropdown-menu">
               <li><a href="#">Pricing</a></li>
               <li><a href="#">Request A Demo</a></li>
@@ -85,7 +86,7 @@
       and I'll get it to you write away!
     </p>
 
-  <form action = "{{ url_for('processquery') }}" method="post">
+  <form>
     <div class="form-group" style="padding-top: 20px; z-index: 9999; padding-right: 100px; padding-left: 100px;">
       <input type="text" class="form-control" id="usr" placeholder="France weather">
     </div>
@@ -137,10 +138,10 @@
             </div>
       
             <div class="col-sm-6">
-              <form action="form.php" class="contact-form" method="post">
+              <form>
         
                   <div class="form-group">
-                    <input type="text" class="form-control" id="name" name="nm" placeholder="Name" required="" autofocus="">
+                    <input type="text" class="form-control" id="name" name="nm" placeholder="Name" required="">
                   </div>
               
                   <div class="form-group form_left">
@@ -211,8 +212,12 @@
     </div> <!-- end of contact -->
 
   <!-- scripts for particles. source code: https://github.com/VincentGarreau/particles.js/ -->
-  <script type="text/javascript" src="particles.js"></script>
-  <script type="text/javascript" src="app.js"></script>
+  
+  <script type="text/javascript" src="{{ url_for('static', filename='particles.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
+
+  <!-- <script type="text/javascript" src="particles.js"></script>
+  <script type="text/javascript" src="app.js"></script> -->
 </body>
 
 </html>
