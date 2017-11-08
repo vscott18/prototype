@@ -24,7 +24,7 @@ print ""
 print "Here's what is happening in the next 4 days:"
 
 for day in data['forecast']['simpleforecast']['forecastday']:
-    print day['date']['weekday'] + "," + day['date']['monthname'] + str(day['date']['day']) + ":"
+    print day['date']['weekday'] + ", " + day['date']['monthname'] + " " + str(day['date']['day']) + ":"
     print "Conditions: ", day['conditions']
     print "High: ", day['high']['celsius'] + "C", "Low: ", day['low']['celsius'] + "C"
     print ""

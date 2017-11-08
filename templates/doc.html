@@ -99,21 +99,58 @@
           </div> <!-- container-fluid and end of navbar-->
 
           <h1 class="text-center"> Here is Your Article! </h1>
+          <p id = "article"></p>
 
           <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+
           <script>
+              jQuery(document).ready(function($) {
+                $.ajax({
+                url : "http://api.wunderground.com/api/cb89ade5f98c2a45/geolookup/conditions/q/IA/Cedar_Rapids.json",
+                dataType : "jsonp",
+                success : function(parsed_json) {
+                var location = parsed_json['location']['city'];
+                var temp_f = parsed_json['current_observation']['temp_f'];
+                write("Current temperature in " + location + " is: " + temp_f);
+                }
+                });
+              });
+              </script>
+          <!-- <script>
           jQuery(document).ready(function($) {
             $.ajax({
-            url : "http://api.wunderground.com/api/cb89ade5f98c2a45/geolookup/conditions/q/IA/Cedar_Rapids.json",
+            url : "http://api.wunderground.com/api/cb89ade5f98c2a45/conditions/forecast/q/France/Paris.json",
             dataType : "jsonp",
-            success : function(parsed_json) {
-            var location = parsed_json['location']['city'];
-            var temp_f = parsed_json['current_observation']['temp_f'];
-            alert("Current temperature in " + location + " is: " + temp_f);
+            success : function(data) {
+              
+              //variables
+            var location = data['location']['city'];
+            var temp = data['current_observation']['temp_c'];
+            var feelslike = data['current_observation']['feelslike_c'];
+
+            //printing some stuff
+            document.write("Currently in " + location + " it is: " + temp + " degrees. But it feels like " + feelslike + " degrees");
+            if(temp < 9) {
+              document.write("Brrr! It's pretty cold. Better bring a jacket to stay warm.");
+            }
+            if(temp > 23 ) {
+              document.write("Is it just the weather or did you just walk in? Either case, it's hot right now. Stay cool!");
+            } //end of if
+            document.write("Here's what is happening in the next 4 days:");
+
+            var day;
+            for(day in data['forecast']['simpleforecast']['forecastday']) {
+              document.write(day['date']['weekday'] + "," + day['date']['monthname'] + " " + day['date']['day'] + ":");
+              document.write("Conditions: ", day['conditions']);
+              document.write("High: ", day['high']['celsius'] + "C", "Low: ", day['low']['celsius'] + "C");
+              document.write(" ");
+            }
+
+            //last 3 brackets
             }
             });
           });
-          </script>
+          </script> -->
           
     <!-- scripts for particles. source code: https://github.com/VincentGarreau/particles.js/ -->
   <script type="text/javascript" src="particles.js"></script>
