@@ -14,6 +14,12 @@ app = Flask(__name__)
 
 #URL to function mappings
 @app.route('/', methods=['GET', 'POST'])
+def home_page():
+    return render_template('index1.html')
 
+@app.route('/processquery', methods = ['POST'])
+def processquery():
+    db = Database()
+    db.close()
 if __name__ == '__main__':
     app.run()

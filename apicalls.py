@@ -1,3 +1,8 @@
-#API key for open weather: 215314faaa1f9375a6f2a329ce37ef44 
+#API key for wunderground: cb89ade5f98c2a45 
+import requests
 
-response = requests.get(http://api.openweathermap.org/data/2.5/forecast?id=524901&APPID=215314faaa1f9375a6f2a329ce37ef44)
+r = requests.get("http://api.wunderground.com/api/cb89ade5f98c2a45/forecast/q/France/Paris.json")
+
+data = r.json()
+
+print data.keys()
