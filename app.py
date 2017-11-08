@@ -21,5 +21,6 @@ def home_page():
 def processquery():
     db = Database()
     db.close()
+    
 if __name__ == '__main__':
     app.run()
