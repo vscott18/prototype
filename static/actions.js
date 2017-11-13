@@ -1,6 +1,7 @@
 // weather template
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
   
+  var query;
   jQuery(document).ready(function($) {
     $.ajax({
       url : "http://api.wunderground.com/api/cb89ade5f98c2a45/geolookup/conditions/forecast/q/France/Paris.json",
