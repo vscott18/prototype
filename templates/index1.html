@@ -12,6 +12,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='actions.js') }}"></script>
+
+  <!-- google autocomplete -->
+  <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&language=en"></script>
 </head>
 
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
@@ -89,7 +92,7 @@
 
   <form>
     <div class="form-group" style="padding-top: 20px; z-index: 9999; padding-right: 100px; padding-left: 100px;">
-      <input type="text" class="form-control" id="usr" placeholder="France weather">
+      <input type="text" class="form-control" id="autocomplete" placeholder="France weather">
     </div>
   
     <div class="submit-btn" style="text-align: center; z-index: 9999;">
@@ -97,6 +100,17 @@
     </div>
   </form>
 
+  <!-- javascript for autocomplete -->
+
+  <script>
+      var input = document.getElementById('autocomplete');
+      var autocomplete = new google.maps.places.Autocomplete(input,{types: ['(cities)']});
+      google.maps.event.addListener(autocomplete, 'place_changed', function(){
+         var place = autocomplete.getPlace();
+         var address = place.formatted_address;
+         alert(address);
+      })
+  </script>
 
   </div> <!-- end of intro container -->
 
