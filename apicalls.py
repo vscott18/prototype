@@ -31,3 +31,4 @@ for day in data['forecast']['simpleforecast']['forecastday']:
     print "Conditions: ", day['conditions']
     print "High: ", day['high']['celsius'] + "C", "Low: ", day['low']['celsius'] + "C"
 #    print ""
+
