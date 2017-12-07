@@ -1,0 +1,10 @@
+import requests
+
+firstPart = "http://api.wunderground.com/api/cb89ade5f98c2a45/conditions/forecast/q/"
+query = raw_input("Enter a location in form Country/City or State/City: ")
+getThis = firstPart+query + ".json"
+
+if "weather" or "stock" or "sports" in query.lower():
+    print True
+#r = requests.get(getThis)
+#data = r.json()

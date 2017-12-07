@@ -5,15 +5,15 @@
   <title>Homepage</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  
   <link href="http://cdn.phpoll.com/css/animate.css" rel="stylesheet">
-  <!-- <link rel="stylesheet" href="styles.css"> -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="{{ url_for('static', filename='actions.js') }}"></script>
 
-  <!-- google autocomplete -->
+  
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='actions.js') }}"></script>
   <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&language=en"></script>
 </head>
 
@@ -35,27 +35,18 @@
         <ul class="nav navbar-nav">
           <li><a href="#">Home</a></li>
           <li><a href="#about">About</a></li>
-          
-          <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#services"> Services</a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Pricing</a></li>
-              <li><a href="#">Request A Demo</a></li>
-              <li><a href="#">Customer Support</a></li>
-            </ul>
-          </li>
-
+          <li><a href="#services">Services</a></li>
           <li><a href="#team">Team</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="#" class="navbar-link sign-up">Sign Up</a></li>
+          <li><a href="#" class="navbar-link sign-up">Register</a></li>
 
-          <li><a href="#" data-toggle="dropdown" class="btn btn-default btn-outline btn-circle dropdown-toggle">Login</a>
+          <li><button data-toggle="dropdown" class="btn btn-default btn-outline btn-circle dropdown-toggle">Login</button>
             <ul class="dropdown-menu login">
               <div class="col-lg-12">
-                <form id="ajax-login-form" action="/action_page.php" method="post" role="form" autocomplete="on">
+                <form id="login-form" action="{{ url_for('login') }}" method="post" role="form" autocomplete="on">
                     
                     <div class="form-group">
                         <label for="username">Username or Email</label>
@@ -73,7 +64,7 @@
             </ul>
                 
           </li>
-        </ul> <!-- end of navbar right  -->
+        </ul> end of navbar right 
 
       </div>
     </nav>
@@ -90,106 +81,104 @@
       and I'll get it to you write away!
     </p>
 
-  <form>
-    <div class="form-group" style="padding-top: 20px; z-index: 9999; padding-right: 100px; padding-left: 100px;">
-      <input type="text" class="form-control" id="autocomplete" placeholder="France weather">
-    </div>   
-  </form>
+    <form>
+      <div class="form-group" style="padding-top: 20px; z-index: 9999; padding-right: 100px; padding-left: 100px;">
+        <input type="text" class="form-control" id="autocomplete" placeholder="France weather">
+      </div>   
+    </form>
 
-  <div id="magicBtn" class="submit-btn" style="text-align: center; z-index: 9999;">
-      <input type="submit" class="btn btn-info btn-lg" value = "Work My Magic" id="magic">
-    </div>
-  <!-- javascript for weather autocomplete -->
-
-  <script>
+    <button id="magic" type="button" class="btn btn-info btn-lg" data-toggle="modal">Work My Magic</button>
+    
+    <!-- javascript for weather autocomplete -->
+    <script>
       var input = document.getElementById('autocomplete');
       var autocomplete = new google.maps.places.Autocomplete(input,{types: ['(cities)']});
       var msg = "";
       var murl = "";
 
-google.maps.event.addListener(autocomplete, 'place_changed', function(){
-  place = autocomplete.getPlace();
-  address = new String(place.formatted_address);
-  splitted = address.split(",");
-  city = new String(splitted[0].replace(/ /g,"_"));
-  stateCountry = new String(splitted[1].replace(/\s+/g, '').replace(/[0-9]/g, ''));
-  msg = new String(stateCountry + "/" + city);
-  murl = new String("http://api.wunderground.com/api/cb89ade5f98c2a45/geolookup/conditions/forecast/q/" + msg + ".json");
+      google.maps.event.addListener(autocomplete, 'place_changed', function(){
+        place = autocomplete.getPlace();
+        address = new String(place.formatted_address);
+        splitted = address.split(",");
+        city = new String(splitted[0].replace(/ /g,"_"));
+        stateCountry = new String(splitted[1].replace(/\s+/g, '').replace(/[0-9]/g, ''));
+        msg = new String(stateCountry + "/" + city);
+        murl = new String("http://api.wunderground.com/api/cb89ade5f98c2a45/geolookup/conditions/forecast/q/" + msg + ".json");
 
-  $.ajax({
-        url : murl,
-        dataType : "jsonp",
-        success : function(parsed_json) {
-        var location = parsed_json['location']['city'];
-        var temp = parsed_json['current_observation']['temp_c'];
-        var feelslike = parsed_json['current_observation']['feelslike_c'];
-        var x = 0;
-        var day;
+        $.ajax({
+            url : murl,
+            dataType : "jsonp",
+            success : function(parsed_json) {
+            var location = parsed_json['location']['city'];
+            var temp = parsed_json['current_observation']['temp_c'];
+            var feelslike = parsed_json['current_observation']['feelslike_c'];
+            var x = 0;
+            var day;
 
-        $('#articleHead').append("Weather in " + location + ", " + stateCountry);
+            $('#articleHead').append("Weather Report for " + location + ", " + stateCountry);
 
-        $('#stage').append("Currently in " + location + " it is: " + temp + " degrees");
+            $('#stage').append("Currently in " + location + " it is: " + temp + " degrees. ");
 
-        if(temp != feelslike) {
-          $('#stage').append("But it feels like " + feelslike + " degrees");
-        }
-      
-        if(temp < 9) {
-          $('#stage').append( "Brrr! It's pretty cold. Better bring a jacket to stay warm.");
-        }
-        if(temp > 23 ) {
-          $('#stage').append("Is it just the weather or did you just walk in? Either case, it's hot right now. Stay cool!");
-        } 
-        $('#stage').append("Here's what is happening in the next 4 days:");
+            if(temp != feelslike) {
+              $('#stage').append("But it feels like " + feelslike + " degrees. ");
+            }
+          
+            if(temp < 9) {
+              $('#stage').append( "Brrr! It's pretty cold. Better bring a jacket to stay warm! ");
+            }
+            if(temp > 23 ) {
+              $('#stage').append("Is it just the weather or did you just walk in? Either case, it's hot right now. Stay cool!");
+            }
+            $('#stage').append("<br>");
+            $('#stage').append("Here's what is happening in the next 3 days: ");
+            $('#stage').append("<br>");
 
-        while (x < 4) {
-          day = parsed_json['forecast']['simpleforecast']['forecastday'][x]
-          $('#stage').append(day['date']['weekday'] + "," + day['date']['monthname'] + " " + day['date']['day'] + ":");
-          $('#stage').append("Conditions: " + day['conditions']);
-          $('#stage').append("High: " + day['high']['celsius'] + "C", "Low: ", day['low']['celsius'] + "C");
-          $('#stage').append(" ");
-          x++;
-        }        
-      }
-    });
-})
-</script>
+            while (x < 4) {
+              day = parsed_json['forecast']['simpleforecast']['forecastday'][x]
+              $('#stage').append(day['date']['weekday'] + ", " + day['date']['monthname'] + " " + day['date']['day'] + ":");
+              $('#stage').append("Conditions: " + day['conditions']);
+              $('#stage').append(" High: " + day['high']['celsius'] + "C", " Low: ", day['low']['celsius'] + "C");
+              $('#stage').append("<br>");
+              x++;
+            }        
+            }
+        });
+      })
+    </script>
 
-<div id="myModal" class="modal">
-
-  <!-- Modal content -->
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <p id="articleHead"> </p>
-    <p id="stage">  </p>
-    <div id="buyBtn" class="submit-btn" style="text-align: center; z-index: 9999;">
-      <input type="submit" class="btn btn-info btn-lg" value = "Buy Article" id="buy">
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <p id="articleHead"> </p>
+          <p id="stage">  </p>
+          <button type="button" class="btn btn-info btn-lg">Purchase Article</button>
+        </div>
     </div>
-  </div>
-</div>
 
-<script>
-  var modal = document.getElementById('myModal');
-  // Get the button that opens the modal
-  var btn = document.getElementById("magicBtn");
-  var span = document.getElementsByClassName("close")[0];
-  btn.onclick = function() {
-    modal.style.display = "block";
-  }
+    <!-- https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal  -->
+    <script>
+        var modal = document.getElementById('myModal');
+        var btn = document.getElementById("magic");
+        var span = document.getElementsByClassName("close")[0]; 
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 
-  span.onclick = function() {
-    modal.style.display = "none";
-  }
-  window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-  }
-</script>
   </div> <!-- end of intro container -->
 
   <!-- about section  -->
-  <div id = "about" class = "container">
+  <div id="about" class="container">
     <h3> About </h3>
     <p> Creating content can be time consuming, amirite? Especially when the content is about sports, 
       weather, or stocks. So why not automate the process so you have time to work on more 
@@ -203,8 +192,8 @@ google.maps.event.addListener(autocomplete, 'place_changed', function(){
   </div>
 
 
-    <!-- team section  -->
-    <div id = "team" class = "container">
+  <!-- team section  -->
+  <div id = "team" class = "container">
         <h3> Meet the Team </h3>
         <img src="https://i.imgur.com/5jxL037.jpg">
         <p style="line-height: 1.0; font-weight:bold; font-size: 25px; color: #C3C7FF">Victoria Scott</p>
@@ -213,10 +202,10 @@ google.maps.event.addListener(autocomplete, 'place_changed', function(){
         <div class="submit-btn" style="text-align: center; z-index: 9999;">
           <a href="https://www.linkedin.com/in/vscott2/"><input type="submit" class="btn btn-info btn-lg" value = "Connect"></a>
         </div> 
-    </div>
+  </div>
 
-    <!-- contact section source code: https://bootsnipp.com/snippets/DOz84 -->
-    <div id = "contact" class="container">
+  <!-- contact section source code: https://bootsnipp.com/snippets/DOz84 -->
+  <div id = "contact" class="container">
       <div class="row">
         <h3> Contact</h3>
         <hr>
@@ -258,7 +247,7 @@ google.maps.event.addListener(autocomplete, 'place_changed', function(){
               <p>
                 <i class="fa fa-envelope" aria-hidden="true"></i> &nbsp vscott@princeton.edu
                 <i class="fa fa-globe" aria-hidden="true"></i> &nbsp www.amiwrite.com
-              </p>  
+              </p>
             </div>
           </div>
           <div class="space"></div>
@@ -295,9 +284,9 @@ google.maps.event.addListener(autocomplete, 'place_changed', function(){
         </div> 
       </div>		   
         
-    </div>
+      </div>
 
-    </div> <!-- end of contact -->
+  </div> <!-- end of contact -->
 
   <!-- scripts for particles. source code: https://github.com/VincentGarreau/particles.js/ -->
   
